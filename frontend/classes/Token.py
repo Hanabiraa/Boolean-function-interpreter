@@ -1,29 +1,20 @@
-import enum
+from enum import Enum
+from dataclasses import dataclass
 
 
-class TokenType(enum.Enum):
-    T_BOOL, T_OR, T_AND, T_LPARENT, T_RPARENT, T_END = range(0, 6)
+class TokenType(Enum):
+	BOOL_VAR  = 0
+	OR        = 1
+	AND       = 2
+	NOT  	  = 3
+	LPAREN    = 4
+	RPAREN    = 5
 
 
-class Token(object):
-    def __init__(self, token_type, token_value):
-        """
-        :param token_type: TokenType
-        :param token_value: str or int or bool
-        """
-        self.type = token_type
-        self.value = token_value
+@dataclass
+class Token:
+	type: TokenType
+	value: any = None
 
-    def __str__(self):
-        return 'Token({type}, {value})'.format(
-            type=self.type,
-            value=repr(self.value)
-        )
-
-    def __repr__(self):
-        """
-        >>> print(Token(T_BOOL, '0'))
-            Token(T_BOOL, '0')
-        """
-        return self.__str__()
-
+	def __repr__(self):
+		return self.type.name + (f":{self.value}" if self.value is not None else "")

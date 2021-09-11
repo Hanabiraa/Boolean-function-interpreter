@@ -1,41 +1,31 @@
 from frontend.classes.Token import TokenType, Token
-import operator
 
 
-class Lexer(object):
-    def __init__(self, tokens):
-        """
-        initialize lexer by tokens
-        :param tokens: list(list(str()))
-
-        pos - for indexing into self.tokens
-        """
-        self.tokens = tokens
-        self.pos = 0
+class Lexer:
+    def __init__(self, word_tokens):
+        self.tokens = iter(word_tokens)
         self.current_token = None
+        self.next_token()
 
-    def error(self):
-        raise Exception('Error parsing input')
+    def next_token(self):
+        try:
+            self.current_token = next(self.tokens)
+        except StopIteration:
+            self.current_token = None
 
-    def get_next_token(self):
-        """
-        create one object token
-        """
-        if self.pos > len(self.tokens) - 1:
-            return Token(TokenType.T_END, None)
-        else:
-            token = self.tokens[self.pos]
-            self.pos = self.pos + 1
-
-        token_table_operation_type = {
-            '0':Token(TokenType.T_BOOL, False),
-            '1':Token(TokenType.T_OR, True),
-            'or': Token(TokenType.T_OR, TokenType.T_OR),
-            'and': Token(TokenType.T_AND, TokenType.T_AND),
-            '(': Token(TokenType.T_LPARENT, TokenType.T_LPARENT),
-            ')': Token(TokenType.T_RPARENT, TokenType.T_RPARENT),
+    def generate_tokens(self):
+        operator_table = {
+            'or': TokenType.OR,
+            'and': TokenType.AND,
+            'not': TokenType.NOT,
         }
-        object_token = token_table_operation_type[token] if token in token_table_operation_type\
-            else Token(TokenType.T_BOOL, token)
 
-        return object_token
+        while self.current_token is not None:
+            if self.current_token not in operator_table:
+                yield Token(TokenType.BOOL_VAR)
+                self.next_token()
+            elif self.current_token in operator_table:
+                yield Token(operator_table[self.current_token])
+                self.next_token()
+            else:
+                raise Exception('Illegal token! {}'.format(self.current_token))
