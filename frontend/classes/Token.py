@@ -10,7 +10,6 @@ class TokenType(Enum):
 	LPAREN    = 4
 	RPAREN    = 5
 
-
 @dataclass
 class Token:
 	type: TokenType

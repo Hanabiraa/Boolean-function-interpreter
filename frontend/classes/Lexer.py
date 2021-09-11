@@ -1,7 +1,21 @@
 from frontend.classes.Token import TokenType, Token
 
+# global dict
+operator_table = {
+            '0': 0,
+            '1': 1,
+            'or': TokenType.OR,
+            'and': TokenType.AND,
+            'not': TokenType.NOT,
+            '(': TokenType.LPAREN,
+            ')': TokenType.RPAREN,
+        }
+
 
 class Lexer:
+    """
+    Create object-tokens for parser
+    """
     def __init__(self, word_tokens):
         self.tokens = iter(word_tokens)
         self.current_token = None
@@ -14,15 +28,10 @@ class Lexer:
             self.current_token = None
 
     def generate_tokens(self):
-        operator_table = {
-            'or': TokenType.OR,
-            'and': TokenType.AND,
-            'not': TokenType.NOT,
-        }
-
+        global operator_table
         while self.current_token is not None:
-            if self.current_token not in operator_table:
-                yield Token(TokenType.BOOL_VAR)
+            if self.current_token in {'0', '1'}:
+                yield Token(TokenType.BOOL_VAR, operator_table[self.current_token])
                 self.next_token()
             elif self.current_token in operator_table:
                 yield Token(operator_table[self.current_token])
