@@ -9,6 +9,8 @@ class TokenType(Enum):
 	NOT  	  = 3
 	LPAREN    = 4
 	RPAREN    = 5
+	EOF		  = 6
+
 
 @dataclass
 class Token:

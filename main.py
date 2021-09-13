@@ -1,25 +1,50 @@
-from frontend.preprocessor import create_word_tokens, create_list_of_tokens, truth_table_csv
+import argparse
+import sys
+
+from frontend.preprocessor import create_word_tokens, create_list_of_tokens
 from frontend.classes.Lexer import Lexer
 from frontend.debug import debug_func
+from frontend.classes.Parser import Parser
 
-if __name__ == '__main__':
+from backend.Interpreter import Interpreter
+from backend.postprocessor import create_truth_table_csv, add_answers_to_csv
+
+def main(visual=False, debug=False):
+    # Intro
     print('Hello, its math parser. Enter your expr:')
     # raw_expr = input()
-    raw_expr = '(x1 or x2) or (x3 and x4)'
+    raw_expr = '(x1 and x2) or (x3 and x4)'
 
-    # pre-processing for lexer
+    # pre-processing
     word_tokens = create_word_tokens(raw_expr)
-
-    # create csv file with truth table
-    truth_table_csv(word_tokens)
-
-    # create list of different tokens-word (different logical vars)
     semantic_tokens_lst = create_list_of_tokens(word_tokens)
-
-    # object-tokens with logging after lexer
     object_tokens_lst = [list(Lexer(tokens).generate_tokens()) for tokens in semantic_tokens_lst]
 
     # DEBUG
-    debug_func(raw_expr, word_tokens, semantic_tokens_lst, object_tokens_lst)
+    if debug:
+        debug_func(raw_expr, word_tokens, semantic_tokens_lst, object_tokens_lst)
+
+    # creating AST and interpret them
+    values = []
+    for object_tokens in object_tokens_lst:
+        parser = Parser(object_tokens)
+        AST = parser.parse()
+        values.append(Interpreter(AST).interpret())
+
+    # create and save csv file with truth table
+    # if flag visual = true -> print pd.Dataframe to sys.stdout.write
+    create_truth_table_csv(word_tokens)
+    add_answers_to_csv(values, raw_expr, visual=visual)
 
 
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Bool complex function parser and calculator, save info in csv-file '
+                                                 'in ./output_data')
+    parser.add_argument("-v", "--visual", type=str, action = argparse.BooleanOptionalAction,
+                        help='flag, if True - print pd.DataFrame with answers to sys.stdout.write')
+    parser.add_argument("-d", "--debug", type=str, action = argparse.BooleanOptionalAction,
+                        help='flag, If True - outputs each change to the token array after the functions. Before the '
+                             'Abstract Syntax Tree')
+
+    args = parser.parse_args()
+    main(debug=args.debug, visual=args.visual)
