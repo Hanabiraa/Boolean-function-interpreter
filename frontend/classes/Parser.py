@@ -1,5 +1,5 @@
 from frontend.classes.Token import Token, TokenType
-from frontend.classes.AST import BinBoolFunc, BoolNum
+from frontend.classes.AST import BinBoolFunc, BoolNum, BoolNegation
 
 
 class Parser(object):
@@ -22,6 +22,10 @@ class Parser(object):
         if token.type == TokenType.BOOL_VAR:
             self.next_token()
             return BoolNum(token)
+        elif token.type == TokenType.NOT:
+            self.next_token()
+            node = BoolNegation(token, self.factor())
+            return node
         elif token.type == TokenType.LPAREN:
             self.next_token()
             node = self.expr()

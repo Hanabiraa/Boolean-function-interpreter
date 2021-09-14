@@ -9,11 +9,12 @@ from frontend.classes.Parser import Parser
 from backend.Interpreter import Interpreter
 from backend.postprocessor import create_truth_table_csv, add_answers_to_csv
 
+
 def main(visual=False, debug=False):
     # Intro
     print('Hello, its math parser. Enter your expr:')
     # raw_expr = input()
-    raw_expr = '(x1 and x2) or (x3 and x4)'
+    raw_expr = 'not (x1 and x2)'
 
     # pre-processing
     word_tokens = create_word_tokens(raw_expr)
@@ -31,8 +32,7 @@ def main(visual=False, debug=False):
         AST = parser.parse()
         values.append(Interpreter(AST).interpret())
 
-    # create and save csv file with truth table
-    # if flag visual = true -> print pd.Dataframe to sys.stdout.write
+    # if flag visual=True -> print pd.Dataframe to sys.stdout.write
     create_truth_table_csv(word_tokens)
     add_answers_to_csv(values, raw_expr, visual=visual)
 
@@ -40,11 +40,10 @@ def main(visual=False, debug=False):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Bool complex function parser and calculator, save info in csv-file '
                                                  'in ./output_data')
-    parser.add_argument("-v", "--visual", type=str, action = argparse.BooleanOptionalAction,
+    parser.add_argument("-v", "--visual", type=str, default=False, action=argparse.BooleanOptionalAction,
                         help='flag, if True - print pd.DataFrame with answers to sys.stdout.write')
-    parser.add_argument("-d", "--debug", type=str, action = argparse.BooleanOptionalAction,
+    parser.add_argument("-d", "--debug", type=str, default=False, action=argparse.BooleanOptionalAction,
                         help='flag, If True - outputs each change to the token array after the functions. Before the '
                              'Abstract Syntax Tree')
-
     args = parser.parse_args()
     main(debug=args.debug, visual=args.visual)

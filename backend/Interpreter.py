@@ -6,7 +6,7 @@ class NodeVisitor(object):
     visit node
     """
     def visit(self, node):
-        method_name = 'visit_' + type(node).__name__.lower()
+        method_name = 'visit_' + type(node).__name__
         visitor = getattr(self, method_name, self.generic_visit)
         return visitor(node)
 
@@ -21,7 +21,13 @@ class Interpreter(NodeVisitor):
     def __init__(self, AST_head):
         self.head_node = AST_head
 
-    def visit_binboolfunc(self, node):
+    def visit_BoolNegation(self, node):
+        """
+        Represent negation
+        """
+        return int(not(self.visit(node.expr)))
+
+    def visit_BinBoolFunc(self, node):
         """
         Represent operand
         """
@@ -30,7 +36,7 @@ class Interpreter(NodeVisitor):
         elif node.op.type == TokenType.OR:
             return self.visit(node.left) or self.visit(node.right)
 
-    def visit_boolnum(self, node):
+    def visit_BoolNum(self, node):
         """
         Represent value
         """

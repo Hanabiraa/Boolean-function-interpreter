@@ -4,6 +4,7 @@ from dataclasses import dataclass
 class AST(object):
     pass
 
+
 @dataclass
 class BinBoolFunc(AST):
     """
@@ -14,6 +15,7 @@ class BinBoolFunc(AST):
         self.token = self.op = op
         self.right = right
 
+
 @dataclass
 class BoolNum(AST):
     """
@@ -22,3 +24,9 @@ class BoolNum(AST):
     def __init__(self, token):
         self.token = token.type
         self.value = token.value
+
+
+class BoolNegation(AST):
+    def __init__(self, op, expr):
+        self.token = self.op = op
+        self.expr = expr

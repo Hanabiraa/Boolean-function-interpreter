@@ -22,7 +22,7 @@ def create_truth_table_csv(tokens):
 
 def add_answers_to_csv(answers, expr='expression', visual=False):
     df = pd.read_csv('./output_data/table.csv')
-    srs = pd.Series(answers, name=expr)
+    srs = pd.Series(answers, name='expr: '+expr)
     df = pd.concat([df, srs], axis=1, ignore_index=False)
     df.to_csv('./output_data/table.csv', index=False)
 
