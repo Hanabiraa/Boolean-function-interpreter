@@ -13,8 +13,12 @@ from backend.postprocessor import create_truth_table_csv, add_answers_to_csv
 def main(visual=False, debug=False):
     # Intro
     print('Hello, its math parser. Enter your expr:')
-    # raw_expr = input()
-    raw_expr = 'not (x1 and x2)'
+    # raw_expr = input('expr>')
+    raw_expr = 'x1 or x2 eqv x3 or x4'
+    raw_expr = 'x1 and x2 le x3'
+    # raw_expr = 'x1 or x2 eqv (x3 or x4)'
+    # raw_expr = 'x1 and x2 eqv x3 and x4'
+
 
     # pre-processing
     word_tokens = create_word_tokens(raw_expr)

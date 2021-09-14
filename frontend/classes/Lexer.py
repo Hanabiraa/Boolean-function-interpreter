@@ -4,12 +4,15 @@ from frontend.classes.Token import TokenType, Token
 operator_table = {
             '0': 0,
             '1': 1,
+            'eqv': TokenType.EQV,
+            'le': TokenType.LE,
+            'ge': TokenType.GE,
             'or': TokenType.OR,
             'and': TokenType.AND,
-            'not': TokenType.NOT,
             '(': TokenType.LPAREN,
             ')': TokenType.RPAREN,
-        }
+            'not': TokenType.NOT,
+}
 
 
 class Lexer:

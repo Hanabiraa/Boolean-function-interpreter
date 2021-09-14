@@ -18,6 +18,9 @@ class Parser(object):
             self.current_token = Token(TokenType.EOF)
 
     def factor(self):
+        """
+        bool number, bool NOT, ()
+        """
         token = self.current_token
         if token.type == TokenType.BOOL_VAR:
             self.next_token()
@@ -33,32 +36,65 @@ class Parser(object):
             return node
 
     def term(self):
+        """
+        bool AND
+        """
         node = self.factor()
 
         while self.current_token.type in {TokenType.AND}:
             token = self.current_token
             if token.type == TokenType.AND:
                 self.next_token()
-            # elif token.type == DIV:
-            #     self.eat(DIV)
 
             node = BinBoolFunc(left=node, op=token, right=self.factor())
 
         return node
 
     def expr(self):
+        """
+        Bool OR
+        """
         node = self.term()
 
         while self.current_token.type in {TokenType.OR}:
             token = self.current_token
             if token.type == TokenType.OR:
                 self.next_token()
-            # elif token.type == MINUS:
-            #     self.eat(MINUS)
 
             node = BinBoolFunc(left=node, op=token, right=self.term())
 
         return node
 
+    def logical_impl(self):
+        """
+        represent IMPLICATION
+        """
+        node = self.expr()
+
+        while self.current_token.type in {TokenType.LE, TokenType.GE}:
+            token = self.current_token
+            if token.type == TokenType.LE:
+                self.next_token()
+            elif token.type == TokenType.GE:
+                self.next_token()
+
+            node = BinBoolFunc(left=node, op=token, right=self.expr())
+
+        return node
+    def logical_eqv(self):
+        """
+        represent low level: equivalency (EQV)
+        """
+        node = self.logical_impl()
+
+        while self.current_token.type in {TokenType.EQV}:
+            token = self.current_token
+            if token.type == TokenType.EQV:
+                self.next_token()
+
+            node = BinBoolFunc(left=node, op=token, right=self.logical_impl())
+
+        return node
+
     def parse(self):
-        return self.expr()
+        return self.logical_eqv()

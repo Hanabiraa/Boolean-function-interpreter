@@ -35,6 +35,12 @@ class Interpreter(NodeVisitor):
             return self.visit(node.left) and self.visit(node.right)
         elif node.op.type == TokenType.OR:
             return self.visit(node.left) or self.visit(node.right)
+        elif node.op.type == TokenType.EQV:
+            return int(self.visit(node.left) is self.visit(node.right))
+        elif node.op.type == TokenType.LE:
+            return int(not self.visit(node.left) or self.visit(node.right))
+        elif node.op.type == TokenType.GE:
+            return int(self.visit(node.left) or not self.visit(node.right))
 
     def visit_BoolNum(self, node):
         """
