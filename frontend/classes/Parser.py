@@ -41,9 +41,11 @@ class Parser(object):
         """
         node = self.factor()
 
-        while self.current_token.type in {TokenType.AND}:
+        while self.current_token.type in {TokenType.AND, TokenType.NAND}:
             token = self.current_token
             if token.type == TokenType.AND:
+                self.next_token()
+            elif token.type == TokenType.NAND:
                 self.next_token()
 
             node = BinBoolFunc(left=node, op=token, right=self.factor())
@@ -52,13 +54,17 @@ class Parser(object):
 
     def expr(self):
         """
-        Bool OR
+        Bool OR, XOR, NOR
         """
         node = self.term()
 
-        while self.current_token.type in {TokenType.OR}:
+        while self.current_token.type in {TokenType.OR, TokenType.XOR, TokenType.NOR}:
             token = self.current_token
             if token.type == TokenType.OR:
+                self.next_token()
+            elif token.type == TokenType.XOR:
+                self.next_token()
+            elif token.type == TokenType.NOR:
                 self.next_token()
 
             node = BinBoolFunc(left=node, op=token, right=self.term())

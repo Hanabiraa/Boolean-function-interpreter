@@ -14,8 +14,9 @@ def main(visual=False, debug=False):
     # Intro
     print('Hello, its math parser. Enter your expr:')
     # raw_expr = input('expr>')
-    raw_expr = 'x1 or x2 eqv x3 or x4'
-    raw_expr = 'x1 and x2 le x3'
+    # raw_expr = 'x1 or x2 eqv x3 or x4'
+    # raw_expr = 'x1 and x2 le x3'
+    raw_expr = 'x1 nand x2'
     # raw_expr = 'x1 or x2 eqv (x3 or x4)'
     # raw_expr = 'x1 and x2 eqv x3 and x4'
 

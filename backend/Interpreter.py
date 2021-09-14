@@ -33,8 +33,14 @@ class Interpreter(NodeVisitor):
         """
         if node.op.type == TokenType.AND:
             return self.visit(node.left) and self.visit(node.right)
+        if node.op.type == TokenType.NAND:
+            return int(not(self.visit(node.left) and self.visit(node.right)))
         elif node.op.type == TokenType.OR:
             return self.visit(node.left) or self.visit(node.right)
+        elif node.op.type == TokenType.XOR:
+            return int(self.visit(node.left) != self.visit(node.right))
+        elif node.op.type == TokenType.NOR:
+            return int(not(self.visit(node.left) or self.visit(node.right)))
         elif node.op.type == TokenType.EQV:
             return int(self.visit(node.left) is self.visit(node.right))
         elif node.op.type == TokenType.LE:

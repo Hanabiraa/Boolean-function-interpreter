@@ -3,17 +3,7 @@ from dataclasses import dataclass
 
 
 class TokenType(Enum):
-	BOOL_VAR = 0,
-	GE = 1,
-	LE = 2,
-	EQV = 3,
-	OR = 4,
-	AND = 5,
-	LPAREN = 6,
-	RPAREN = 7,
-	NOT = 8,
-	EOF = 9
-
+	BOOL_VAR, GE, LE, EQV, OR, XOR, NOR, AND, NAND, LPAREN, RPAREN, NOT, EOF = range(13)
 
 @dataclass
 class Token:
