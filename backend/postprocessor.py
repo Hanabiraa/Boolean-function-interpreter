@@ -8,12 +8,6 @@ import os
 def create_truth_table(tokens, answers, expr='expression', visual=False, simple=False):
     """
     Creates a truth table and, depending on flags, saves and/or print them
-    :param tokens:
-    :param answers:
-    :param expr:
-    :param visual:
-    :param simple:
-    :return:
     """
     if os.path.isfile('./output_data/table.csv'):
         os.remove('./output_data/table.csv')

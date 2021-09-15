@@ -121,7 +121,7 @@ x1 and x2 nand x3
 |[↓ / NOR / Peirce's arrow](https://en.wikipedia.org/wiki/Logical_NOR)|`nor`|
 |[→ / implication](https://en.wikipedia.org/wiki/Material_conditional)|`le`|
 |[← / reverse implication](https://en.wikipedia.org/wiki/Converse_(logic))|`ge`|
-|[<->/ = / ~/ EQ / EQV](https://en.wikipedia.org/wiki/Logical_equality)|`eqv`|
+|[<-> / = / ~ / EQ / EQV](https://en.wikipedia.org/wiki/Logical_equality)|`eqv`|
 
 #### About priority
 Operations are divided into 5 parts by priority, the author advises, for 100% reliability of the correctness of the result, to separate operations in one category _(for example, either `and` or `nand` in the same category and evaluating them without parentheses is **undefined behavior**)_ with parentheses.
