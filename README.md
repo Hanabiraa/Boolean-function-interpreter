@@ -2,7 +2,35 @@
 
 An interpreter written from scratch in python that can calculate basic boolean functions over the entire truth table or specific values
 
-|dependecies|version|
+
+## Syntax
+
+Operations are divided into 5 parts by priority, the author advises, for 100% reliability of the correctness of the result, to separate operations in one category (for example, either `and` or `nand` in the same category and are calculated from left to right) with parentheses
+
+Priority of categories: 1 - first, 5 - last
+1. `Bool number`, `negation`, `parentheses`
+2. `and`, `nand`
+3. `or`, `xor`, `nor`
+4. `le`, `ge`
+5. `eqv`
+
+This interpreter supports operations such as:
+
+|operation|equivalent for expression|
+|----|-------|
+|[Inverter / ¬](https://en.wikipedia.org/wiki/Inverter_(logic_gate))|negation|
+|[logical conjunction / & / ∧](https://en.wikipedia.org/wiki/AND_gate)|and|
+|[NAND / ↑ / Sheffer stroke](https://en.wikipedia.org/wiki/NAND_gate)|nand|
+|[logical disjunction / ∨](https://en.wikipedia.org/wiki/OR_gate)|or|
+|[exclusive OR / EOR / EXOR](https://en.wikipedia.org/wiki/XOR_gate)|xor|
+|[NOR / ↓ / Peirce's arrow](https://en.wikipedia.org/wiki/Logical_NOR)|nor|
+|le|le|
+||ge|
+|eqv|eqv|
+
+## Dependencies
+
+|package|version|
 |----|-------|
 |python|>= 3.9.6|
 |pandas|>= 1.3.2|
