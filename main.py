@@ -6,7 +6,6 @@ from frontend.classes.Parser import Parser
 from frontend.debug import debug_func
 
 from backend.classes.Interpreter import Interpreter
-# from backend.postprocessor import create_truth_table_csv, add_answers_to_csv
 from backend.postprocessor import create_truth_table
 
 
@@ -30,9 +29,8 @@ def main(debug=False, visual=False, simple=False, expr=''):
         AST = parser.parse()
         values.append(Interpreter(AST).interpret())
 
-    # if flag visual=True -> print pd.Dataframe to sys.stdout.write
-    # create_truth_table_csv(word_tokens)
-    # add_answers_to_csv(values, raw_expr, visual=visual)
+    # if flag visual=True -> print pd.Dataframe to sys.stdout.write and save truth table in ./output_data/table.csv
+    # if flag simple=True -> print pd.Dataframe to sys.stdout.write without save truth table
     create_truth_table(word_tokens, values, raw_expr, visual=visual, simple=simple)
 
 
