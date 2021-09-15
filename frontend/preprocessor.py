@@ -23,6 +23,7 @@ def create_word_tokens(expr):
     tokens = re.sub(r'[(]|[)]', complex_repl, expr).split()
     return tokens
 
+
 def create_list_of_tokens(tokens):
     """
     Create truth table and change all vars on different variants by rows in table

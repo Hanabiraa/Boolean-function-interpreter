@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class TokenType(Enum):
 	BOOL_VAR, GE, LE, EQV, OR, XOR, NOR, AND, NAND, LPAREN, RPAREN, NOT, EOF = range(13)
 
+
 @dataclass
 class Token:
 	type: TokenType

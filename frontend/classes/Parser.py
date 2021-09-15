@@ -19,7 +19,7 @@ class Parser(object):
 
     def factor(self):
         """
-        bool number, bool NOT, ()
+        represent bool number, NOT, ()
         """
         token = self.current_token
         if token.type == TokenType.BOOL_VAR:
@@ -37,7 +37,7 @@ class Parser(object):
 
     def term(self):
         """
-        bool AND
+        represent AND, NAND
         """
         node = self.factor()
 
@@ -54,7 +54,7 @@ class Parser(object):
 
     def expr(self):
         """
-        Bool OR, XOR, NOR
+        represent OR, XOR, NOR
         """
         node = self.term()
 

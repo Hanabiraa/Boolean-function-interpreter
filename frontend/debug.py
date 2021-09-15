@@ -9,10 +9,8 @@ def debug_func(raw_expr=None, word_tokens=None,
     :param object_tokens: [[TokenType]]
     :return None
     """
-    print('your expr: {}'.format(raw_expr), end='\n')
-    print()
-    print('simple tokens:', word_tokens, sep='\n', end='\n')
-    print()
-    print('semantic tokens list:', semantic_tokens_lst, sep='\n', end='\n')
-    print()
-    print('object tokens list:', object_tokens_lst, sep='\n', end='\n')
+    print('your expr: {}'.format(raw_expr),
+          'simple tokens: {}'.format(word_tokens),
+          'semantic tokens list: {}'.format(semantic_tokens_lst),
+          'object tokens list: {}'.format(object_tokens_lst),
+          sep='\n\n', end='\n')
