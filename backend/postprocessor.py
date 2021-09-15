@@ -25,6 +25,7 @@ def add_answers_to_csv(answers, expr='expression', visual=False):
     srs = pd.Series(answers, name='expr: '+expr)
     df = pd.concat([df, srs], axis=1, ignore_index=False)
     df.to_csv('./output_data/table.csv', index=False)
+    print('truth table saved in ./output_data/table.csv')
 
     if visual:
         print(df)
