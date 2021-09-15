@@ -4,7 +4,6 @@ An interpreter written from scratch in python that can calculate basic boolean f
 
 ### Dependencies
 
-
 |package|version|
 |----|-------|
 |python|>= 3.9.6|
@@ -47,15 +46,68 @@ in the ./output_data/table.csv
 
 ## Syntax
 
-#### About priority
-Operations are divided into 5 parts by priority, the author advises, for 100% reliability of the correctness of the result, to separate operations in one category _(for example, either `and` or `nand` in the same category and evaluating them without parentheses is **undefined behavior**)_ with parentheses.
+### How to write expression?
 
-Priority of categories: 1 - first, 5 - last
-1. `Bool number`, `negation`, `parentheses`
-2. `and`, `nand`
-3. `or`, `xor`, `nor`
-4. `le`, `ge`
-5. `eqv`
+1. To obtain a complete truth table for variables, 
+you can number the variable with letters: x1, x2, x3, a, b, c, d,
+var1, var2, varN. But if instead of variables you write {0, 1} - these
+are fixed numbers and the expression will be calculated only
+for them.
+**The author does not recommend using numbers as variable names** i.e. 2, 3, 4, 11, 1231231)
+
+```python
+x1 and x2 or x3
+```
+
+```python
+a and b or c
+```
+
+```python
+var1 and b or c
+```
+
+> *For all expressions above, a truth table will be created for all variations {0, 1} for all variables*
+
+```python
+1 or 0 and 1
+```
+
+> *For this expression, 1 single answer will be calculated, since the variables are specified by the constant*
+
+2. You **must** put spaces between variables and operators
+
+```python
+x1 and x2 nor x3
+```
+
+```python
+0 or 1 and 0
+```
+
+3. Between the operator and the parenthesis, a space is also needed, between the variable and the parenthesis, a space can be omitted
+
+```python
+not (x1 or x2)
+```
+
+```python
+(x1 and x2) or (not x1 or x2)
+```
+
+4. Operations in one priority group are calculated from left to right **(The author highly recommends separating operators in one category with brackets)**
+
+> bad practise below
+
+```python
+x1 and x2 nand x3
+```
+
+> good practise below
+
+```python
+(x1 and x2) nand x3
+```
 
 #### Which boolean operations supports?
 
@@ -71,6 +123,15 @@ Priority of categories: 1 - first, 5 - last
 |[← / reverse implication](https://en.wikipedia.org/wiki/Converse_(logic))|`ge`|
 |[<->/ = / ~/ EQ / EQV](https://en.wikipedia.org/wiki/Logical_equality)|`eqv`|
 
+#### About priority
+Operations are divided into 5 parts by priority, the author advises, for 100% reliability of the correctness of the result, to separate operations in one category _(for example, either `and` or `nand` in the same category and evaluating them without parentheses is **undefined behavior**)_ with parentheses.
+
+Priority of categories: 1 - first, 5 - last
+1. `Bool number`, `negation`, `parentheses`
+2. `and`, `nand`
+3. `or`, `xor`, `nor`
+4. `le`, `ge`
+5. `eqv`
 
 # Introduction
 
@@ -85,3 +146,40 @@ Because only 1 lexeme is required to determine the parsing path (lexeme of one o
 ## How it works
 
 ![Image](./img_for_readme/pipeline.svg)
+
+### Preprocessor
+
+In this part of the pipeline, we will convert the entered expression to tokens.
+Further, if the tokens contain variables, then an array of token arrays is created,
+where the variables are replaced with their defined locations from {0,1}.
+
+### Lexer
+
+The lexer converts all tokens to object tokens, since further,
+it is with the help of object tokens that the parser will recognize which is which and distribute
+them over the abstract syntax tree (AST)
+
+### Parser
+
+Based on object tokens, the parser builds an abstract syntax tree (AST).
+
+### Interpreter
+
+The interpreter receives an abstract syntax tree (AST) as input, and then,
+passing through each of the branches, calculates the value
+
+### Postprocessor
+
+This paragraph contains functions for displaying the received truth table for
+expression and response to a file with the extension `.сsv`, as well as displaying all
+results and tables on the screen
+
+# Conclusion
+I express my gratitude to all these developers, whose projects / articles
+I was inspired by and who helped me create my own interpreter.
+
+- [py-simple-math-interpreter](https://github.com/davidcallanan/py-simple-math-interpreter)
+- [Let’s Build A Simple Interpreter](https://ruslanspivak.com/lsbasi-part1/). An excellent series of articles on building your own language interpreter.
+- [Немного о лексическом анализе](https://habr.com/ru/post/435102/)
+- [parser](https://github.com/gnebehay/parser)
+- [compilers-slides](https://people.montefiore.uliege.be/geurts/Cours/compil/2017/compilers-slides-2017-2018.pdf)
