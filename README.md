@@ -1,6 +1,4 @@
- # Python - Boolean Function Interpreter
- 
-***
+# Python - Boolean Function Interpreter
 
 An interpreter written from scratch in python that can calculate basic boolean functions over the entire truth table or specific values
 
@@ -74,9 +72,7 @@ Priority of categories: 1 - first, 5 - last
 |[<->/ = / ~/ EQ / EQV](https://en.wikipedia.org/wiki/Logical_equality)|`eqv`|
 
 
-### Introduction
-
-***
+# Introduction
 
 This interpreter was created during my bachelor's degree in software engineering.
 In this example, I studied one of the [top-down parsing algorithms](https://ru.wikipedia.org/wiki/%D0%9D%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D1%8F%D1%89%D0%B8%D0%B9_%D1%81%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7).
@@ -88,3 +84,4 @@ Because only 1 lexeme is required to determine the parsing path (lexeme of one o
 
 ## How it works
 
+![Image](./img_for_readme/pipeline.svg)

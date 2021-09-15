@@ -2,8 +2,8 @@ import argparse
 
 from frontend.preprocessor import create_word_tokens, create_list_of_tokens
 from frontend.classes.Lexer import Lexer
-from frontend.debug import debug_func
 from frontend.classes.Parser import Parser
+from frontend.debug import debug_func
 
 from backend.classes.Interpreter import Interpreter
 # from backend.postprocessor import create_truth_table_csv, add_answers_to_csv
