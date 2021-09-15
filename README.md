@@ -2,33 +2,8 @@
 
 An interpreter written from scratch in python that can calculate basic boolean functions over the entire truth table or specific values
 
+### Dependencies
 
-## Syntax
-
-Operations are divided into 5 parts by priority, the author advises, for 100% reliability of the correctness of the result, to separate operations in one category (for example, either `and` or `nand` in the same category and are calculated from left to right) with parentheses
-
-Priority of categories: 1 - first, 5 - last
-1. `Bool number`, `negation`, `parentheses`
-2. `and`, `nand`
-3. `or`, `xor`, `nor`
-4. `le`, `ge`
-5. `eqv`
-
-This interpreter supports operations such as:
-
-|operation|equivalent for expression|
-|----|-------|
-|[Inverter / ¬](https://en.wikipedia.org/wiki/Inverter_(logic_gate))|negation|
-|[logical conjunction / & / ∧](https://en.wikipedia.org/wiki/AND_gate)|and|
-|[NAND / ↑ / Sheffer stroke](https://en.wikipedia.org/wiki/NAND_gate)|nand|
-|[logical disjunction / ∨](https://en.wikipedia.org/wiki/OR_gate)|or|
-|[exclusive OR / EOR / EXOR](https://en.wikipedia.org/wiki/XOR_gate)|xor|
-|[NOR / ↓ / Peirce's arrow](https://en.wikipedia.org/wiki/Logical_NOR)|nor|
-|le|le|
-||ge|
-|eqv|eqv|
-
-## Dependencies
 
 |package|version|
 |----|-------|
@@ -41,7 +16,7 @@ chapters
 
 ***
 
-## How to use it
+## How to use
 
 ```shell
 python3 main.py
@@ -49,7 +24,7 @@ python3 main.py
 
 In the program itself, you will be prompted to the input line, where you must enter the expression, for example:
 
-**(By default, the entire truth table will be saved to the ./output_data/table.csv file and is not shown, flag -v change this behavior)**
+**(By default, the entire truth table will be saved to the ./output_data/table.csv file and is not shown, flag -v or -s change this behavior (see below))**
 
 ```python
 prompt> x1 and x2
@@ -68,11 +43,40 @@ in the ./output_data/table.csv
 
 ## Flags
 
-|flag|meaning|
+|flag|extend flag|meaning|
+|----|-----------|-------|
+|-h|--help|for reference|
+|-v|--visual| print pd.DataFrame with answers to sys.stdout.write and saves the file to the standard path (default: False)|
+|-s|--simple|it just outputs the answer without storing it anywhere (default: False)|
+|-e|--expr|You can enter an expression into this flag if you don't want to do it through the main.py|
+|-d|--debug|outputs each change to the token array after the functions. Before the Abstract Syntax Tree (default=False)|
+
+## Syntax
+
+#### About priority
+Operations are divided into 5 parts by priority, the author advises, for 100% reliability of the correctness of the result, to separate operations in one category (for example, either `and` or `nand` in the same category and are calculated from left to right) with parentheses
+
+Priority of categories: 1 - first, 5 - last
+1. `Bool number`, `negation`, `parentheses`
+2. `and`, `nand`
+3. `or`, `xor`, `nor`
+4. `le`, `ge`
+5. `eqv`
+
+#### Which boolean operations supports?
+
+|operation|equivalent for expression|
 |----|-------|
-|-h|for reference|
-|-v|print pd.DataFrame with answers to sys.stdout.write (default=False)|
-|-d|outputs each change to the token array after the functions. Before the Abstract Syntax Tree (default=False)|
+|[¬ / Inverter](https://en.wikipedia.org/wiki/Inverter_(logic_gate))|negation|
+|[∧ / & / logical conjunction](https://en.wikipedia.org/wiki/AND_gate)|and|
+|[↑ / NAND / Sheffer stroke](https://en.wikipedia.org/wiki/NAND_gate)|nand|
+|[∨ / logical disjunction](https://en.wikipedia.org/wiki/OR_gate)|or|
+|[⊕ / exclusive OR / EOR / NE](https://en.wikipedia.org/wiki/XOR_gate)|xor|
+|[↓ / NOR / Peirce's arrow](https://en.wikipedia.org/wiki/Logical_NOR)|nor|
+|[→ / implication](https://en.wikipedia.org/wiki/Material_conditional)|le|
+|[← / reverse implication](https://en.wikipedia.org/wiki/Converse_(logic))|ge|
+|[↔ / ~/ EQ / EQV](https://en.wikipedia.org/wiki/Logical_equality)|eqv|
+
 
 ## Introduction
 
